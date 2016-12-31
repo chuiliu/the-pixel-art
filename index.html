@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>the Pixel Art | 图像转像素图</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h1>the Pixel Art</h1>
+
+            <input id="img-upload" type="file" accept="image/*" >
+            <label for="img-upload" class="btn btn-upload">+ 上传图片</label>
+            <div id="img-preview">未上传</div>
+
+
+            <div class="threshold">
+                <div class="threshold-checkbox">
+                    <input type="checkbox" name="isThresholdOn" id="threshold-on" checked="checked">
+                    <label for="threshold-on">阈值 (0 ~ 255)：</label>
+                </div>
+
+                <div class="threshold-range active" id="threshold-range">
+                    <button id="subtract" class="btn-small">-</button>
+                    <input type="range" min="0" max="255" step="1" name="level" value="128" id="threshold-level">
+                    <button id="add" class="btn-small">+</button>
+                    <span class="threshold-val">128</span>
+                </div>
+            </div>
+
+
+            <div class="scale">
+                <label for="scale">缩放比例：</label>
+                <input type="number" min="0.01" max="1" step="0.01" value="0.25" name="scale" id="scale">
+            </div>
+
+            <a href="#" id="download" class="btn btn-download">下载</a>
+        </div>
+
+        <div class="main">
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <a href="https://github.com/chuiliu/the_pixel_art"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+    </div>
+
+    <script type="text/javascript" src="js/pixel.js"></script>
+</body>
+</html>
