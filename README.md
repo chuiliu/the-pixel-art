@@ -1,4 +1,4 @@
-# the_pixel_art 将图片转成像素图
+# the pixel art 将图片转成像素图
 
 http://chuiliu.github.io/demo/pixel/
 
