@@ -22,7 +22,6 @@ html, body {
     width: 92%;
     min-height: 100%;
     min-width: 980px;
-    /* overflow: hidden; */
 }
 
 .sidebar {
@@ -38,12 +37,13 @@ html, body {
 
 .sidebar h1 {
     margin-top: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     font-size: 32px;
     color: #666;
 }
 
 .sidebar .threshold {
+    position: relative;
     margin-top: 40px;
 }
 
@@ -52,8 +52,21 @@ html, body {
 }
 
 .sidebar .threshold .threshold-val {
+    position: absolute;
+    top: 0;
+    right: 120px;
     font-size: 18px;
     color: #36b953;
+}
+
+
+.sidebar .mode {
+    margin-top: 30px;
+}
+
+.sidebar .mode label {
+    width: 50px;
+    margin-right: 20px;
 }
 
 .sidebar .scale {
@@ -74,12 +87,32 @@ html, body {
     color: #ccc;
 }
 
+.sidebar .disable .option + label::before {
+    -webkit-box-shadow: 0 0 0 2px #ccc;
+            box-shadow: 0 0 0 2px #ccc;
+    background-color: #fff;
+    cursor: default;
+}
+
+.sidebar .disable .option:checked + label::before {
+    -webkit-box-shadow: 0 0 0 2px #ccc;
+            box-shadow: 0 0 0 2px #ccc;
+    background-color: #ccc;
+    cursor: default;
+}
+
+.sidebar .disable label {
+    color: #666;
+    cursor: default;
+}
+
+
 #scale {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     padding-left: 10px;
-    width: 150px;
+    width: 140px;
     border: 1px solid #ccc;
     -webkit-border-radius: 2px;
             border-radius: 2px;
@@ -87,12 +120,17 @@ html, body {
     color: #333;
 }
 
-
 .main {
     overflow: hidden;
     padding-top: 40px;
     margin-left: 320px;
     min-width: 500px;
+}
+
+#canvas {
+    display: block;
+    margin:  0 auto;
+    max-width: 500px;
 }
 
 #img-upload {
@@ -110,6 +148,7 @@ html, body {
     text-align: center;
     color: #999;
 }
+
 #img-preview img {
     display: inline-block;
     max-width: 300px;
@@ -117,19 +156,19 @@ html, body {
     vertical-align: middle;
 }
 
-#threshold-on {
+.option {
     position: absolute;
     left: 0;
     visibility: hidden;
 }
 
-#threshold-on + label {
-    display: block;
+.option + label {
+    display: inline-block;
     position: relative;
     left: 26px;
     cursor: pointer;
 }
-#threshold-on + label::before {
+.option + label::before {
     content: '';
     position: absolute;
     left: -24px;
@@ -144,7 +183,7 @@ html, body {
     background-color: #fff;
 }
 
-#threshold-on:checked + label::before {
+.option:checked + label::before {
     content: '';
     position: absolute;
     left: -24px;
@@ -159,15 +198,8 @@ html, body {
     background-color: #36b953;
 }
 
-
-#canvas {
-    display: block;
-    margin:  0 auto;
-    max-width: 500px;
-}
-
 input[type="range"] {
-    width: 200px;
+    width: 230px;
     height: 2px;
     -webkit-border-radius: 6px;
             border-radius: 6px;
@@ -216,11 +248,13 @@ label {
 .btn-small {
     display: inline-block;
     vertical-align: middle;
+    padding: 0 6px;
     width: 24px;
     height: 18px;
-    line-height: 18px;
     border: none;
     outline: none;
+    line-height: 18px;
+    font-size: 18px;
     text-align: center;
     text-shadow: 0 0 1px rgba(0, 0, 0, .2);
     color: #36b953;

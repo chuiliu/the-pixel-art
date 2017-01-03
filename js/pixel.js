@@ -11,10 +11,14 @@
 
     var thresholdLevel = $('threshold-level'),
         thresholdVal = document.querySelector('.threshold-val'),
+        mode = document.getElementsByName('mode'),
         add = $('add'),
         subtract = $('subtract'),
         scaleRatio = $('scale'),
         isThresholdOn = $('threshold-on'),
+        modePanel = $('mode-panel'),
+        modeBlack = $('mode-black'),
+        modeColor = $('mode-color'),
         uploadBtn = $('img-upload'),
         downloadBtn = $('download');
 
@@ -23,19 +27,26 @@
      * @param  {[type]} ctx       [description]
      * @param  {[type]} imageData [description]
      * @param  {[type]} threshold [阈值]
+     * @param  {[type]} mode      [模式：0：彩色，1：黑白]
      * @return {[type]}           [description]
      */
-    var thresholdConvert = function(ctx, imageData, threshold) {
+    var thresholdConvert = function(ctx, imageData, threshold, mode) {
         var data = imageData.data;
         for (var i = 0; i < data.length; i += 4) {
+            var red = data[i];
+            var green = data[i + 1];
+            var blue = data[i + 2];
+            var alpha = data[i + 3];
+
             // 灰度计算公式
             var gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 *data[i + 2];
+
             var color = gray >= threshold ? 255 : 0;
-            var alpha = data[i + 3];
-            data[i]     = color;  // red
-            data[i + 1] = color;  // green
-            data[i + 2] = color;  // blue
-            data[i + 3] = alpha >= threshold ? 255 : 0;  // 去掉透明
+
+            data[i]     = (mode == 0 && color == 0) ? red : color;    // red
+            data[i + 1] = (mode == 0 && color == 0) ? green : color;  // green
+            data[i + 2] = (mode == 0 && color == 0) ? blue : color;   // blue
+            data[i + 3] = alpha >= threshold ? 255 : 0;               // 去掉透明
         }
         ctx.putImageData(imageData, 0, 0);
     };
@@ -60,7 +71,7 @@
 
             var imageData = context.getImageData(0, 0, image.width * scale, image.height * scale);
             // 阈值处理
-            isThresholdOn.checked && thresholdConvert(context, imageData, currentThreshold);
+            isThresholdOn.checked && thresholdConvert(context, imageData, currentThreshold, getModeValue(mode));
 
             var dataURL = canvasTemp.toDataURL();
             var canvas = $('canvas');
@@ -90,12 +101,26 @@
             thresholdLevel.disabled = false;
             add.disabled = false;
             subtract.disabled = false;
+            modeBlack.disabled = false;
+            modeColor.disabled = false;
             thresholdRange.classList.remove('disable');
+            modePanel.classList.remove('disable');
         } else {
             thresholdLevel.disabled = true;
             add.disabled = true;
             subtract.disabled = true;
+            modeBlack.disabled = true;
+            modeColor.disabled = true;
             thresholdRange.classList.add('disable');
+            modePanel.classList.add('disable');
+        }
+    };
+
+    var getModeValue = function(ele) {
+        for (var i = 0, len = ele.length; i < len; i++) {
+            if (ele[i].checked) {
+                return ele[i].value;
+            }
         }
     };
 
@@ -135,6 +160,13 @@
         toggleThreshold(this.checked);
         render();
     }, false);
+
+    for (var i = 0, len = mode.length; i < len; i++) {
+        mode[i].addEventListener('change', function() {
+            render();
+        }, false);
+    }
+
 
 
 

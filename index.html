@@ -15,14 +15,13 @@
             <label for="img-upload" class="btn btn-upload">+ 上传图片</label>
             <div id="img-preview">未上传</div>
 
-
             <div class="threshold">
                 <div class="threshold-checkbox">
-                    <input type="checkbox" name="isThresholdOn" id="threshold-on" checked="checked">
+                    <input type="checkbox" name="isThresholdOn" class="option" id="threshold-on" checked="checked">
                     <label for="threshold-on">阈值 (0 ~ 255)：</label>
                 </div>
 
-                <div class="threshold-range active" id="threshold-range">
+                <div class="threshold-range" id="threshold-range">
                     <button id="subtract" class="btn-small">-</button>
                     <input type="range" min="0" max="255" step="1" name="level" value="128" id="threshold-level">
                     <button id="add" class="btn-small">+</button>
@@ -30,13 +29,19 @@
                 </div>
             </div>
 
+            <div class="mode" id="mode-panel">
+                <span class="mode">模式：</span>
+                <input type="radio" name="mode" id="mode-black" class="option" checked="checked" value="1"><label for="mode-black">黑白</label>
+                <input type="radio" name="mode" id="mode-color" class="option"  value="0"><label for="mode-color">彩色</label>
+            </div>
+
 
             <div class="scale">
-                <label for="scale">缩放比例：</label>
+                <label for="scale">缩放值 (像素大小)：</label>
                 <input type="number" min="0.01" max="1" step="0.01" value="0.25" name="scale" id="scale">
             </div>
 
-            <a href="#" id="download" class="btn btn-download">下载</a>
+            <a href="#" id="download" class="btn btn-download">下载图片</a>
         </div>
 
         <div class="main">
